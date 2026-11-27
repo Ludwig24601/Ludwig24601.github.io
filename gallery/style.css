@@ -1,0 +1,316 @@
+:root {
+  color-scheme: light dark;
+  --bg: #ffffff;
+  --surface: #f2f2f2;
+  --text: #111111;
+  --muted: #9e9e9e;
+  --border: #eaeaea;
+  --backdrop: rgba(10, 10, 12, 0.94);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111214;
+    --surface: #1b1d21;
+    --text: #f0f0f2;
+    --muted: #7c8089;
+    --border: #262930;
+    --backdrop: rgba(5, 5, 7, 0.96);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0 auto;
+  max-width: 66rem;
+  padding: 2.75rem 1.75rem 4rem;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+.site-header {
+  margin-bottom: 2.5rem;
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.2rem;
+}
+
+.site-nav a {
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.15s ease;
+}
+
+.site-nav a:hover,
+.site-nav a.active {
+  color: var(--text);
+}
+
+.block-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.album-block {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9; 
+  overflow: hidden;
+  text-decoration: none;
+  background-color: var(--surface);
+}
+
+.album-block img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: transform 0.65s ease;
+}
+
+/* Hover-triggered darkening overlay and date heading */
+.album-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0 10%;
+  background-color: rgba(0, 0, 0, 0.42);
+  color: #ffffff;
+  opacity: 0;
+  transition: opacity 0.28s ease;
+}
+
+.album-block:hover .album-overlay,
+.album-block:focus-visible .album-overlay {
+  opacity: 1;
+}
+
+.album-block:hover img {
+  transform: scale(1.015);
+}
+
+.album-date {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  opacity: 0.92;
+  margin-bottom: 0.2rem;
+}
+
+.album-title {
+  margin: 0;
+  font-size: clamp(1.6rem, 3.2vw, 2.35rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+
+.album-header {
+  margin-bottom: 2rem;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.25rem;
+  font-size: 0.84rem;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.back-link:hover {
+  color: var(--text);
+}
+
+.album-page-date {
+  margin: 0 0 0.2rem;
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+
+.album-page-title {
+  margin: 0;
+  font-size: 1.85rem;
+  font-weight: 400;
+}
+
+/* Album Detail Page */
+.photo-grid {
+  column-count: 2;
+  column-gap: 1.25rem;
+}
+
+.photo-item {
+  break-inside: avoid;
+  margin: 0 0 1.25rem;
+  cursor: zoom-in;
+}
+
+.photo-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background-color: var(--surface);
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: opacity 0.2s ease;
+}
+
+.photo-item:hover img {
+  opacity: 0.92;
+}
+
+.site-footer {
+  margin-top: 3.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* full-width photo*/
+.photo-item.full-width {
+    column-span: all;
+}
+
+/* lightbox */
+.lightbox {
+  padding: 0;
+  border: none;
+  background: transparent;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
+}
+
+.lightbox::backdrop {
+  background: var(--backdrop);
+}
+
+.lightbox[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lb-stage {
+  max-width: min(90vw, 1280px);
+  max-height: 90vh;
+  padding: 1rem;
+}
+
+.lb-stage img {
+  max-width: 100%;
+  max-height: 86vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.lb-btn {
+  position: fixed;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.72);
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.5rem 0.8rem;
+  transition: color 0.15s ease;
+}
+
+.lb-btn:hover {
+  color: #ffffff;
+}
+
+.lb-close {
+  top: 1rem;
+  right: 1.25rem;
+  font-size: 2rem;
+}
+
+.lb-prev,
+.lb-next {
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.5rem;
+}
+
+.lb-prev {
+  left: 0.75rem;
+}
+
+.lb-next {
+  right: 0.75rem;
+}
+
+/* On touchscreen devices (hover states unavailable), text remains visible by default, with a subtle top-to-bottom gradient applied to prevent it from being obscured. */
+@media (hover: none) {
+  .album-overlay {
+    opacity: 1;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.48) 0%,
+      rgba(0, 0, 0, 0.1) 55%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+}
+
+/* adaptation for mobile phones */
+@media (max-width: 640px) {
+  body {
+    padding: 2rem 1rem 3rem;
+  }
+
+  .album-block {
+    aspect-ratio: 16 / 10;
+  }
+
+  .album-overlay {
+    padding: 1.25rem 1.4rem;
+  }
+
+  .photo-grid {
+    column-count: 1;
+  }
+}
+
+.album-text {
+  max-width: 38rem;    
+  margin: 2.5rem 0;    
+  font-size: 1.5rem;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.album-text p {
+  margin: 0 0 0.85rem;
+}
+
+.album-text p:last-child {
+  margin-bottom: 0;
+}
